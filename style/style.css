@@ -1,0 +1,41 @@
+/* ----- General ----- */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ----- Main ----- */
+#main-container {
+    display: flex;
+}
+
+.bookCard {
+    width: 200px;
+    height: 100px;
+    border: solid 3px black;
+}
+
+#addBook {
+    background-color: rgb(243, 186, 79);
+    min-width: 100px;
+    min-height: 30px;
+    border: none;
+}
+
+#addBook:hover { 
+    background-color: rgb(248, 177, 45);
+}
+
+/* Form */
+form {
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----- Footer ----- */
+footer {
+    background-color: rgb();
+}
