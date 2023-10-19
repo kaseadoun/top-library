@@ -1,3 +1,9 @@
+:root {
+    --signal-yellow: rgb(243, 186, 79);
+    --deeper-yellow: rgb(248, 177, 45);
+    --lighter-yellow: rgb(255, 227, 174);
+}
+
 /* ----- General ----- */
 * {
     font-family: Arial, Helvetica, sans-serif;
@@ -5,9 +11,33 @@
     padding: 0;
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ----- Header ----- */
+header, footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    background-color: var(--deeper-yellow);
+    box-shadow: -5px 10px 2px var(--deeper-yellow);
+    min-height: 80px;
+    height: 8vh;
+    max-height: 1000px;
+}
+
 /* ----- Main ----- */
 #main-container {
     display: flex;
+    padding: 20px 40px;
+    gap: 30px;
 }
 
 .bookCard {
@@ -17,25 +47,38 @@
 }
 
 #addBook {
-    background-color: rgb(243, 186, 79);
+    background-color: var(--signal-yellow);
     min-width: 100px;
     min-height: 30px;
     border: none;
 }
 
 #addBook:hover { 
-    background-color: rgb(248, 177, 45);
+    background-color: var(--deeper-yellow);
 }
 
 /* Form */
+#form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--deeper-yellow);
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 70vh;
+    padding: 20px;
+    border-radius: 10px;
+}
+
 form {
     min-width: 300px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 /* ----- Footer ----- */
 footer {
-    background-color: rgb();
+    margin-top: auto;
+    min-height: 50px;
 }
