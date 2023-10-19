@@ -16,21 +16,13 @@ function addBookToLibrary() {
     const title = document.getElementById("title");
     const author = document.getElementById("author");
     const pages = document.getElementById("pages");
-    const readCheck = document.querySelectorAll('input[name="read-check"]');
+    const readCheck = document.querySelector('input[name="read-check"]:checked');
 
     if (checkForExistingBook(title.value, author.value, pages.value)) {
         console.log("Book exists");
         return true;
     } else {
-        let read;
-        for (const radio of readCheck) {
-            if (radio.checked) {
-                read = radio.value;
-                break;
-            }
-        }
-
-        const newBook = new Book(title.value, author.value, pages.value, read);
+        const newBook = new Book(title.value, author.value, pages.value, readCheck.value);
 
         myLibrary.push(newBook);
     }
@@ -38,9 +30,7 @@ function addBookToLibrary() {
     title.value = "";
     author.value = "";
     pages.value = "";
-    for (const radio of readCheck) {
-        radio.checked = false;
-    }
+    readCheck.checked = false;
 }
 
 function displayLibrary(event) {
@@ -64,8 +54,7 @@ function displayLibrary(event) {
             bookCard.appendChild(bookAuthor);
             bookPages.textContent = myLibrary[bookIndex].pages;
             bookCard.appendChild(bookPages);
-            readBook.textContent = myLibrary[bookIndex].read;
-            bookCard.appendChild(readBook);
+            readBookButton.textContent = myLibrary[bookIndex].read;
 
             // Set class to book card
             bookCard.setAttribute("class", "bookCard");
@@ -74,13 +63,9 @@ function displayLibrary(event) {
             deleteBook.textContent = "Remove Book";
             deleteBook.setAttribute("class", "deleteBook");
 
-            // Setting up read check button
-            readBookButton.textContent = "Change Read Status";
-            readBookButton.setAttribute('class', 'changeStatus');
-
             // Appending delete and read status button
             bookCard.appendChild(deleteBook).addEventListener('click', removeBook);
-            bookCard.appendChild(readBookButton).addEventListener('click', changeReadStatus);
+            bookCard.appendChild(readBookButton).addEventListener('click', readStatusChange);
 
             // Appending book card to the library container
             library.appendChild(bookCard);
@@ -104,6 +89,24 @@ function removeBook() {
     bookIndex--;
 }
 
+function readStatusChange() {
+    // Select nodelist of the book cards
+    const bookCards = document.querySelectorAll(".bookCard");
+
+    // Get an Array version of the nodelist
+    const arrayOfBookCards = Array.from(bookCards);
+
+    let cardIndex = arrayOfBookCards.indexOf(this.closest('div'));
+
+    if (myLibrary[cardIndex].read == "Read") {
+        myLibrary[cardIndex].read = "Not Read";
+    } else if (myLibrary[cardIndex].read == "Not Read") {
+        myLibrary[cardIndex].read = "Read";
+    }
+    this.textContent = myLibrary[cardIndex].read;
+    console.log(myLibrary);
+}
+
 function checkForExistingBook(title, author, pages) {
     for (let i = 0; i < myLibrary.length; i++) {
         if (title == myLibrary[i].title && author == myLibrary[i].author && pages == myLibrary[i].pages) {
@@ -111,9 +114,5 @@ function checkForExistingBook(title, author, pages) {
         }
     }
 }
-
-// function changeReadStatus() {
-//     console.log(this.closest("div").);
-// }
 
 addBookButton.addEventListener("mousedown", displayLibrary);
